@@ -4,6 +4,7 @@ print("*" * 50)
 print("Seja bem vindo!")
 print("*" * 50)
 
+#PRIMEIRO MENU: CADASTRO DO USUARIO PARA TER O LOGIN
 while True:
     opcao=input("ESCOLHA O QUE VOCÊ DESEJA FAZER\n\n"
                 "0 - Sair do aplicativo\n"\
@@ -15,10 +16,12 @@ while True:
                 "6 - LOGIN\n"\
                 "\nDIGITE A OPÇÃO ESCOLHIDA : ")
     
+#QUEBRA PARA SAIR DO APLICATIVO  
     if(opcao=="0"):
         print("Até a proxima!")
         break
 
+#CADASTRO 
     if(opcao=="1"):
         nome=input("Digite seu nome: ")
         email=input("Digite seu email: ")
@@ -55,6 +58,7 @@ while True:
                     })
         print("Cadastro feito com sucesso!!")
     
+#LISTAGEM DE USUARIOS JA CADASTRADOS 
     if(opcao=="2"):
         print("\nLista de usuários\n")
         for usu in usuarios:
@@ -64,7 +68,7 @@ while True:
             
     print("\n")
     
-            
+#BUSCA DE UM USUARIO POR EMAIL        
     if(opcao=="3"):
         emailBusca = input("Digite um email para busca: ")
         encontrado = False
@@ -77,6 +81,7 @@ while True:
                 print(f"Email: {usu["email"]}")
                 print("-" * 50)
                 
+#REMOÇÃO DE EMAIL
     if(opcao=="4"):
         emailBusca = input("Digite um email para remover: ")
         indice = -1
@@ -89,6 +94,7 @@ while True:
         else:
             usuarios.pop(indice)
     
+#ATUALIZAÇÃO DO EMAIL/ATUALIZAÇÃO DO CADASTRO DO USUARIO
     if(opcao=="5"):
         emailBusca = input("Digite um email para atualizar: ")
         indice = -1
@@ -105,8 +111,10 @@ while True:
             usuarios[indice]["nome"] = nomeNovo
             usuarios[indice]["senha"] = senhaNova
     else:
-        print("Opção inválida, escolha novamente...")
+        print("Opção inválida, escolha novamente...") #Preciso ajeitar aqui
  
+ #LOGIN,SEGUNDO MENU APARTIR DO LOGIN
+  
     if(opcao=="6"):
         email=input("Digite o seu email: ")
         senha=input("Digite sua senha: ")
@@ -123,14 +131,17 @@ while True:
             print("Login efetuado com sucesso!")
             login=True
         else:
-            print("Erro no login,algo está errado!")
+            print("Erro no login,algo está errado!") #Ajeitar aqui tambem, não sei o que ta errado
          
-   
+#SEGUNDO MENU(SO USUARIOS LOGADOS)
     while(login==True):
         opcao2=input("ESCOLHA O QUE DESJA FAZER\n\n"
-                 "1 - Cadastro de carona\n"\
+                "1 - Cadastro de carona\n"\
+                "2 - Lista de caronas disponiveis\n"\
+                "3 - Buscar carona "
                      "\nDIGITE O QUE ESCOLHEU: ")
         
+#CADASTRO DE UMA CARONA       
         if(opcao2=="1"):
             cadastrodecarona=[]
             
@@ -144,6 +155,7 @@ while True:
                 origem=input("Digite de onde o veiculo vai sair : ")
                 destino=input("Digite o destino da viagem: ")
                 vagas=int(input("Digite quantas vagas tem  no veiculo : "))
+                #Como fazer a quantidade de vagas disponiveis e ja prenchida
                 valorPorVaga=float(input("Digite o valor por cada vaga : "))
                 data=input("Digite a data da viagem (Formarto em dd/mm/aaaa): ")
                 dia=int(data[0:2])
@@ -212,10 +224,29 @@ while True:
                                          "vagas":vagas,
                                          "valorporVaga":valorPorVaga})
             print("Carona cadrastada com sucesso!!!")
-                    
-                
-                    
-                
+
+#LISTA DE CARONAS CADASTRADAS
+        if(opcao2=="2"):
+            print("*"*50)
+            print("\nLista de Caronas\n")
+            for usu in usuarios:
+                print(f"Nome : {usu["nome"]}")
+            for car in cadastrodecarona:
+                print(f"Veiculo: {car["tipodeveiculo"]}")
+                print(f"Nome do veiculo: {car["nomedoveiculo"]}")
+                print(f"Cor do veiculo: {car["cordoveiculo"]}")
+                print(f"A placa do veiculo: {car["placa"]}")
+                print(f"Saída da viagem : {car["origem"]}")
+                print(f"Destino da viagem: {car["destino"]}")
+                print(f"Data da viagem : {car["data"]}")
+                print(f"Vagas disponiveis: {car["vagas"]}")
+                print(f"Valor por vaga: {car["valorporVaga"]}")
+            print("*"*50)
+#BUSCA POR CARONA
+        if(opcao=="3"):
+            saidabusca=input("Digite de onde vai sair: ") 
+            destinobusca=input("Digite para onde voce quer ir: ")
+             #Resolver problemas no codigo antes de fazer    
                 
                 
                 
