@@ -1,4 +1,6 @@
 usuarios=[]
+usuariologado={}
+cadastrodecarona={}
 
 print("*" * 50)
 print("Seja bem vindo!")
@@ -9,11 +11,7 @@ while True:
     opcao=input("ESCOLHA O QUE VOCÊ DESEJA FAZER\n\n"
                 "0 - Sair do aplicativo\n"\
                 "1 - Cadastro do usuário\n"\
-                "2 - Listar usuários\n"\
-                "3 - Buscar usuário por email\n"\
-                "4 - Remover usuário por email\n"\
-                "5 - Atualizar o usuário\n "
-                "6 - LOGIN\n"\
+                "2 - LOGIN\n"\
                 "\nDIGITE A OPÇÃO ESCOLHIDA : ")
     
 #QUEBRA PARA SAIR DO APLICATIVO  
@@ -51,111 +49,56 @@ while True:
             print("Senha curta demais!")
             print("Tente novamente!")
             senha=input("Digite sua senha: ")
-   
+
         usuarios.append({"nome":nome,
                          "email":email,
                          "senha":senha
                     })
         print("Cadastro feito com sucesso!!")
-    
-#LISTAGEM DE USUARIOS JA CADASTRADOS 
+        print("*" * 50)
+
+
+#LOGIN,SEGUNDO MENU APARTIR DO LOGIN
     if(opcao=="2"):
-        print("\nLista de usuários\n")
-        for usu in usuarios:
-            print(f"nome: {usu["nome"]}")
-            print(f"email: {usu["email"]}")
-            print("-" * 50)
-            
-    print("\n")
-    
-#BUSCA DE UM USUARIO POR EMAIL        
-    if(opcao=="3"):
-        emailBusca = input("Digite um email para busca: ")
-        encontrado = False
-        for usu in usuarios:
-            if(emailBusca == usu["email"]):
-                encontrado = True
-                print("Encontrou o usuário\n\n")
-                print("-" * 50)
-                print(f"Nome: {usu["nome"]}")
-                print(f"Email: {usu["email"]}")
-                print("-" * 50)
-                
-#REMOÇÃO DE EMAIL
-    if(opcao=="4"):
-        emailBusca = input("Digite um email para remover: ")
-        indice = -1
-        for ind in range(len(usuarios)):
-            if(emailBusca == usuarios[ind]["email"]):
-                indice = ind
-
-        if(indice == -1):
-            print("Não encontrou o usuário!")
-        else:
-            usuarios.pop(indice)
-    
-#ATUALIZAÇÃO DO EMAIL/ATUALIZAÇÃO DO CADASTRO DO USUARIO
-    if(opcao=="5"):
-        emailBusca = input("Digite um email para atualizar: ")
-        indice = -1
-        for ind in range(len(usuarios)):
-            if(emailBusca == usuarios[ind]["email"]):
-                indice = ind
-
-        if(indice == -1):
-            print("Não encontrou o usuário!")
-        else:
-            nomeNovo = input("Digite seu novo nome: ")
-            senhaNova = input("Digite sua nova senha: ")
-
-            usuarios[indice]["nome"] = nomeNovo
-            usuarios[indice]["senha"] = senhaNova
-    else:
-        print("Opção inválida, escolha novamente...") #Preciso ajeitar aqui
- 
- #LOGIN,SEGUNDO MENU APARTIR DO LOGIN
-  
-    if(opcao=="6"):
         email=input("Digite o seu email: ")
         senha=input("Digite sua senha: ")
-        Emailregistrado=False
-        senhaCorreta=False
         login=False
         for usu in usuarios:
-            if(email==usu["email"]):
-                Emailregistrado=True
-            elif(senha==usu["senha"]):
-                senhaCorreta=True
-            elif(Emailregistrado==True and senhaCorreta==True):
-                continue
-            print("Login efetuado com sucesso!")
-            login=True
-        else:
-            print("Erro no login,algo está errado!") #Ajeitar aqui tambem, não sei o que ta errado
+            if(email==usu["email"] and senha==usu["senha"] ):
+                login=True
+                usuariologado=usu
+                break
+        if(login==False):
+            print("Erro no login,algo está errado!") 
          
 #SEGUNDO MENU(SO USUARIOS LOGADOS)
-    while(login==True):
-        opcao2=input("ESCOLHA O QUE DESJA FAZER\n\n"
-                "1 - Cadastro de carona\n"\
-                "2 - Lista de caronas disponiveis\n"\
-                "3 - Buscar carona "
-                     "\nDIGITE O QUE ESCOLHEU: ")
-        
-#CADASTRO DE UMA CARONA       
-        if(opcao2=="1"):
-            cadastrodecarona=[]
+        while(login==True):
+            opcao2=input("ESCOLHA O QUE DESJA FAZER\n\n"
+                    "0 -Logout\n"\
+                    "1 - Cadastro de carona\n"\
+                    "2 - Lista de caronas disponiveis\n"\
+                    "3 - Buscar carona\n"\
+                    "4 - Reserva de Carona\n"\
+                        "\nDIGITE O QUE ESCOLHEU: ")
             
-            Carona=input("Voce deseja registrar uma carona? (s\n): ").lower
-            if(Carona=="s"):
+#LOGOUT(QUEBRA PARA VOLTAR PARA O PRIMEIRO MENU)
+            if(opcao2=="0"):
+                print("Até mais!")
+                break
+            
+#CADASTRO DE UMA CARONA       
+            if(opcao2=="1"):
+                cadastrodecarona=[]
+                    
                 print("Informe as seguintes informaçoes!")
-                tipoveiculo=input("Digite o tipo do veiculo(moto,carro,van e etc): ").lower
+                emaildomotorista=usuariologado["email"]
+                tipoveiculo=input("Digite o tipo do veiculo(moto,carro,van e etc): ").lower()
                 nomedoveiculo=input("Digite o nome do veiculo (Onix,Prisma, POP100):")
                 cordoVeiculo=input("Digite a cor do veiculo: ")
-                placa=input("Digite a placa do veiculo :").upper
+                placa=input("Digite a placa do veiculo :").upper()
                 origem=input("Digite de onde o veiculo vai sair : ")
                 destino=input("Digite o destino da viagem: ")
                 vagas=int(input("Digite quantas vagas tem  no veiculo : "))
-                #Como fazer a quantidade de vagas disponiveis e ja prenchida
                 valorPorVaga=float(input("Digite o valor por cada vaga : "))
                 data=input("Digite a data da viagem (Formarto em dd/mm/aaaa): ")
                 dia=int(data[0:2])
@@ -166,87 +109,94 @@ while True:
 
                 if(ano % 4 == 0):
                     ebissexto="S"
-                    if(ano % 100==0 and ano %400!=0):
-                        ebissexto="N"
+                if(ano % 100==0 and ano %400!=0):
+                    ebissexto="N"
                 if(mes==1 
-                or mes == 3 
-                or mes == 5 
-                or mes == 7 
-                or mes == 8
-                or mes == 10
-                or mes == 12):
+                    or mes == 3 
+                    or mes == 5 
+                    or mes == 7 
+                    or mes == 8
+                    or mes == 10
+                    or mes == 12):
                     if(dia>=1 and dia<=31):
                         validado="S"
                 elif(mes==  4 
-                    or mes == 6 
-                    or mes == 9 
-                    or mes == 11):
+                        or mes == 6 
+                        or mes == 9 
+                        or mes == 11):
                     if(dia>=1 and dia<=30):
                         validado="S"
-                elif(mes==2):
-                    if(ebissexto=="S"and dia>=1 and dia<=29):
+                    elif(mes==2):
+                        if(ebissexto=="S"and dia>=1 and dia<=29):
+                            validado="S"
+                    elif(dia>=1 and dia<=28):
                         validado="S"
-                elif(dia>=1 and dia<=28):
-                    validado="S"
-                    
-                if(validado=="S"):
-                    print("É uma data valida")
-                else:
-                    print("É uma data invalida")
-                
-                
-                while len(placa)<7:
-                    print("Placa invalida!")
+                            
+                    if(validado=="S"):
+                            print("É uma data valida")
+                    else:
+                            print("É uma data invalida")
+                        
+                while (len(placa)<7):
+                    print("Placa invalida!Não é padrão do mercosul")
                     print("Escreva-a corretamente agora!")
-                    placa=input("Digite a placa do veiculo :").upper
-                    
+                    placa=input("Digite a placa do veiculo :").upper()
+                            
                 while(tipoveiculo=="aviao" 
                     or tipoveiculo=="navio"
                     or tipoveiculo=="barco"
                     or tipoveiculo=="canoa"):
                     print("Veiculo impossivel de registrar")
                     print("Cadastre outro veiculo")
-                    tipoveiculo=input("Digite o tipo do veiculo(moto,carro,van e etc): ").lower
-                    
+                    tipoveiculo=input("Digite o tipo do veiculo(moto,carro,van e etc): ").lower()
+                            
                 if(valorPorVaga>20):
-                    pergunta=input("Tem certeza(s/n):").lower
-                elif(pergunta!="s"):
-                    print("Coloque um novo valor")
-                    valorPorVaga=float(input("Digite o valor por cada vaga : "))
+                    pergunta=input("Tem certeza(s/n):").lower()
+                    if(pergunta!="s"):
+                        print("Coloque um novo valor")
+                        valorPorVaga=float(input("Digite o valor por cada vaga : "))
+                            
+                        cadastrodecarona.append({"emaildomotorista":emaildomotorista,
+                                                    "tipodeveiculo":tipoveiculo,
+                                                    "nomedoveiculo":nomedoveiculo,
+                                                    "cordoveiculo":cordoVeiculo,
+                                                    "placa":placa,
+                                                    "origem":origem,
+                                                    "destino":destino,
+                                                    "data":data,
+                                                    "vagas":vagas,
+                                                    "valorporVaga":valorPorVaga})
+                print("Carona cadrastada com sucesso!!!")
                 
-                cadastrodecarona.append({"tipodeveiculo":tipoveiculo,
-                                         "nomedoveiculo":nomedoveiculo,
-                                         "cordoveiculo":cordoVeiculo,
-                                         "placa":placa,
-                                         "origem":origem,
-                                         "destino":destino,
-                                         "data":data,
-                                         "vagas":vagas,
-                                         "valorporVaga":valorPorVaga})
-            print("Carona cadrastada com sucesso!!!")
-
 #LISTA DE CARONAS CADASTRADAS
-        if(opcao2=="2"):
-            print("*"*50)
-            print("\nLista de Caronas\n")
-            for usu in usuarios:
-                print(f"Nome : {usu["nome"]}")
-            for car in cadastrodecarona:
-                print(f"Veiculo: {car["tipodeveiculo"]}")
-                print(f"Nome do veiculo: {car["nomedoveiculo"]}")
-                print(f"Cor do veiculo: {car["cordoveiculo"]}")
-                print(f"A placa do veiculo: {car["placa"]}")
-                print(f"Saída da viagem : {car["origem"]}")
-                print(f"Destino da viagem: {car["destino"]}")
-                print(f"Data da viagem : {car["data"]}")
-                print(f"Vagas disponiveis: {car["vagas"]}")
-                print(f"Valor por vaga: {car["valorporVaga"]}")
-            print("*"*50)
+            if(opcao2=="2"):
+                print("*"*50)
+                print("\nLista de Caronas\n")
+                
+                for car in cadastrodecarona:
+                    if(car["vagas"]>0):
+                        print(f"Email do motorista:{car["emaildomotorista"]} ")
+                        print(f"Veiculo: {car["tipodeveiculo"]}")
+                        print(f"Nome do veiculo: {car["nomedoveiculo"]}")
+                        print(f"Cor do veiculo: {car["cordoveiculo"]}")
+                        print(f"A placa do veiculo: {car["placa"]}")
+                        print(f"Saída da viagem : {car["origem"]}")
+                        print(f"Destino da viagem: {car["destino"]}")
+                        print(f"Data da viagem : {car["data"]}")
+                        print(f"Vagas disponiveis: {car["vagas"]}")
+                        print(f"Valor por vaga: {car["valorporVaga"]}")
 #BUSCA POR CARONA
-        if(opcao=="3"):
-            saidabusca=input("Digite de onde vai sair: ") 
-            destinobusca=input("Digite para onde voce quer ir: ")
-             #Resolver problemas no codigo antes de fazer    
-                
-                
-                
+            if(opcao=="3"):
+                saidabusca=input("Digite de onde vai sair: ") 
+                destinobusca=input("Digite para onde voce quer ir: ")
+                caronaencontrada=False
+            elif(saidabusca == {car["origem"]} and destinobusca == {car["destino"]}):
+                caronaencontrada=True
+                print("Encontrou uma carona!\n\n")
+                print("-" * 50)
+                print(f"Origem: {car["origem"]}")
+                print(f"Destino: {car["destino"]}")
+                print("-" * 50)
+
+#RESERVA DE UMA CARONA
+
