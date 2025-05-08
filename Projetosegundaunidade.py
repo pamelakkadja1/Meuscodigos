@@ -222,10 +222,14 @@ while True:
                             print(f"Assentos disponiveis: {reservacarona['Carro']}")
                             assentoescolha=input("Digite o assento desejado:")
                             reservacarona["Carro"]-=1
+                            print("Reserva feita!")
                         if(tipoveiculo=="moto"):   
                             print(f"Assentos disponiveis: {reservacarona['Moto']}")  
                             assentoescolha=input("Confirme o assento desejado:") 
                             reservacarona["Moto"]-=1
+                            print("Reserva feita!")
+                    else:
+                        print("Reserva não concluida")
                 while(escolhamotorista not in {car["emaildomotorista"]}):
                     print("Carona não encontrada!") 
                     print("Tente novamente")
