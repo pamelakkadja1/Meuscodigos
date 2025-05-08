@@ -1,6 +1,8 @@
 usuarios=[]
 usuariologado={}
 cadastrodecarona={}
+reservacarona={"Carro":["A1","A2","A3","A4"],
+               "Moto":["B1"]}
 
 print("*" * 50)
 print("Seja bem vindo!")
@@ -92,7 +94,7 @@ while True:
                     
                 print("Informe as seguintes informaçoes!")
                 emaildomotorista=usuariologado["email"]
-                tipoveiculo=input("Digite o tipo do veiculo(moto,carro,van e etc): ").lower()
+                tipoveiculo=input("Digite o tipo do veiculo(moto ou carro): ").lower()
                 nomedoveiculo=input("Digite o nome do veiculo (Onix,Prisma, POP100):")
                 cordoVeiculo=input("Digite a cor do veiculo: ")
                 placa=input("Digite a placa do veiculo :").upper()
@@ -145,7 +147,9 @@ while True:
                 while(tipoveiculo=="aviao" 
                     or tipoveiculo=="navio"
                     or tipoveiculo=="barco"
-                    or tipoveiculo=="canoa"):
+                    or tipoveiculo=="canoa"
+                    or tipoveiculo=="van"
+                    or tipoveiculo=="onibus"):
                     print("Veiculo impossivel de registrar")
                     print("Cadastre outro veiculo")
                     tipoveiculo=input("Digite o tipo do veiculo(moto,carro,van e etc): ").lower()
@@ -168,11 +172,10 @@ while True:
                                                     "valorporVaga":valorPorVaga})
                 print("Carona cadrastada com sucesso!!!")
                 
-#LISTA DE CARONAS CADASTRADAS
+#LISTA DE CARONAS CADASTRADAS (Não aparecendo no terminal)
             if(opcao2=="2"):
                 print("*"*50)
                 print("\nLista de Caronas\n")
-                
                 for car in cadastrodecarona:
                     if(car["vagas"]>0):
                         print(f"Email do motorista:{car["emaildomotorista"]} ")
@@ -190,13 +193,40 @@ while True:
                 saidabusca=input("Digite de onde vai sair: ") 
                 destinobusca=input("Digite para onde voce quer ir: ")
                 caronaencontrada=False
-            elif(saidabusca == {car["origem"]} and destinobusca == {car["destino"]}):
-                caronaencontrada=True
-                print("Encontrou uma carona!\n\n")
-                print("-" * 50)
-                print(f"Origem: {car["origem"]}")
-                print(f"Destino: {car["destino"]}")
-                print("-" * 50)
+                if(saidabusca == {car["origem"]} and destinobusca == {car["destino"]}):
+                    caronaencontrada=True
+                    print("Encontrou uma carona!\n\n")
+                    print("-" * 50)
+                    print(f"Origem: {car["origem"]}")
+                    print(f"Destino: {car["destino"]}")
+                    print("-" * 50)
 
-#RESERVA DE UMA CARONA
-
+#RESERVA DE UMA CARONA(Não tenho certeza se esta certo)
+            if(opcao2=="4"):
+                escolhamotorista=input("Digite o email do motorista desejado:")
+                if(escolhamotorista in {car["emaildomotorista"]}):
+                    print("Carona encontrada!")
+                    print(f"Email do motorista:{car["emaildomotorista"]}")
+                    print(f"Veiculo:{car["tipodoveiculo"]}")  
+                    print(f"Nome do veiculo : {car["nomedoveiculo"]}")    
+                    print(f"Cor: {car["cordoveiculo"]}")
+                    print(f"A placa do veiculo: {car["placa"]}")
+                    print(f"Saída da viagem : {car["origem"]}")
+                    print(f"Destino da viagem: {car["destino"]}")
+                    print(f"Data da viagem : {car["data"]}")
+                    print(f"Vagas disponiveis: {car["vagas"]}")
+                    print(f"Valor por vaga: {car["valorporVaga"]}")
+                    escolha=input("Deseja realmente reservar? (s/n): ").lower()
+                    if(escolha=="s"):
+                        if(tipoveiculo=="carro"):
+                            print(f"Assentos disponiveis: {reservacarona['Carro']}")
+                            assentoescolha=input("Digite o assento desejado:")
+                            reservacarona["Carro"]-=1
+                        if(tipoveiculo=="moto"):   
+                            print(f"Assentos disponiveis: {reservacarona['Moto']}")  
+                            assentoescolha=input("Confirme o assento desejado:") 
+                            reservacarona["Moto"]-=1
+                while(escolhamotorista not in {car["emaildomotorista"]}):
+                    print("Carona não encontrada!") 
+                    print("Tente novamente")
+                    escolhamotorista=input("Digite o email do motorista desejado:")
