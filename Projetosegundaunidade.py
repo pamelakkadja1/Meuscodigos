@@ -79,8 +79,10 @@ while True:
                     "0 -Logout\n"\
                     "1 - Cadastro de carona\n"\
                     "2 - Lista de caronas disponiveis\n"\
-                    "3 - Buscar carona\n"\
-                    "4 - Reserva de Carona\n"\
+                    "3 - Buscar carona por origem e destino\n"\
+                    "4 - Buscar por data\n"\
+                    "5 - Reserva de Carona\n"\
+                    "6 - Minhas caronas\n"
                         "\nDIGITE O QUE ESCOLHEU: ")
             
 #LOGOUT(QUEBRA PARA VOLTAR PARA O PRIMEIRO MENU)
@@ -172,7 +174,7 @@ while True:
                                                     "valorporVaga":valorPorVaga})
                 print("Carona cadrastada com sucesso!!!")
                 
-#LISTA DE CARONAS CADASTRADAS (Não aparecendo no terminal)
+#LISTA DE CARONAS DISPONIVEIS (Não aparecendo no terminal)
             if(opcao2=="2"):
                 print("*"*50)
                 print("\nLista de Caronas\n")
@@ -197,12 +199,20 @@ while True:
                     caronaencontrada=True
                     print("Encontrou uma carona!\n\n")
                     print("-" * 50)
-                    print(f"Origem: {car["origem"]}")
-                    print(f"Destino: {car["destino"]}")
+                    print(f"Email do motorista:{car["emaildomotorista"]} ")
+                    print(f"Veiculo: {car["tipodeveiculo"]}")
+                    print(f"Nome do veiculo: {car["nomedoveiculo"]}")
+                    print(f"Cor do veiculo: {car["cordoveiculo"]}")
+                    print(f"A placa do veiculo: {car["placa"]}")
+                    print(f"Saída da viagem : {car["origem"]}")
+                    print(f"Destino da viagem: {car["destino"]}")
+                    print(f"Data da viagem : {car["data"]}")
+                    print(f"Vagas disponiveis: {car["vagas"]}")
+                    print(f"Valor por vaga: {car["valorporVaga"]}")
                     print("-" * 50)
-
+                    
 #RESERVA DE UMA CARONA(Não tenho certeza se esta certo)
-            if(opcao2=="4"):
+            if(opcao2=="5"):
                 escolhamotorista=input("Digite o email do motorista desejado:")
                 if(escolhamotorista in {car["emaildomotorista"]}):
                     print("Carona encontrada!")
@@ -234,3 +244,68 @@ while True:
                     print("Carona não encontrada!") 
                     print("Tente novamente")
                     escolhamotorista=input("Digite o email do motorista desejado:")
+
+#LISTA DE CARONAS CADASTRADAS PELO USUÁRIO
+            if(opcao2=="6"):
+                print("Caronas cadastradas")
+                if(usuariologado in cadastrodecarona):
+                    print(f"Email do motorista:{car["emaildomotorista"]}")
+                    print(f"Veiculo:{car["tipodoveiculo"]}")  
+                    print(f"Nome do veiculo : {car["nomedoveiculo"]}")    
+                    print(f"Cor: {car["cordoveiculo"]}")
+                    print(f"A placa do veiculo: {car["placa"]}")
+                    print(f"Saída da viagem : {car["origem"]}")
+                    print(f"Destino da viagem: {car["destino"]}")
+                    print(f"Data da viagem : {car["data"]}")
+                    print(f"Vagas disponiveis: {car["vagas"]}")
+                    print(f"Valor por vaga: {car["valorporVaga"]}")
+                    
+#BUSCA DE CARONA POR DATA
+            if(opcao2=="4"):
+                escolhamotorista=input("Digite o email do motorista desejado:")
+                dataprocurada=input("Digite uma data (dd/mm/aaaa): ")
+                dia=int(data[0:2])
+                mes=int(data[3:5])
+                ano=int(data[6:10])
+                validado="N"
+                ebissexto="N"
+
+                if(ano % 4 == 0):
+                    ebissexto="S"
+                if(ano % 100==0 and ano %400!=0):
+                    ebissexto="N"
+                if(mes==1 
+                    or mes == 3 
+                    or mes == 5 
+                    or mes == 7 
+                    or mes == 8
+                    or mes == 10
+                    or mes == 12):
+                    if(dia>=1 and dia<=31):
+                        validado="S"
+                elif(mes==  4 
+                        or mes == 6 
+                        or mes == 9 
+                        or mes == 11):
+                    if(dia>=1 and dia<=30):
+                        validado="S"
+                    elif(mes==2):
+                        if(ebissexto=="S"and dia>=1 and dia<=29):
+                            validado="S"
+                    elif(dia>=1 and dia<=28):
+                        validado="S"
+                            
+                    if(validado=="S"):
+                            print("É uma data valida")
+                    else:
+                            print("É uma data invalida")
+                if(dataprocurada in {car["data"]}):
+                    print("Carona encontrada!")
+                    print(f"Saída da viagem : {car["origem"]}")
+                    print(f"Destino da viagem: {car["destino"]}")
+                    print(f"Data da viagem : {car["data"]}")
+                    print(f"Vagas disponiveis: {car["vagas"]}")
+                    print(f"Valor por vaga: {car["valorporVaga"]}")
+                else:
+                    print("Não existe carona para essa data!")
+    
