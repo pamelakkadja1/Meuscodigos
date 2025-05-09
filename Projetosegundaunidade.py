@@ -91,9 +91,7 @@ while True:
                 break
             
 #CADASTRO DE UMA CARONA       
-            if(opcao2=="1"):
-                cadastrodecarona=[]
-                    
+            if(opcao2=="1"): 
                 print("Informe as seguintes informaçoes!")
                 emaildomotorista=usuariologado["email"]
                 tipoveiculo=input("Digite o tipo do veiculo(moto ou carro): ").lower()
@@ -162,7 +160,7 @@ while True:
                         print("Coloque um novo valor")
                         valorPorVaga=float(input("Digite o valor por cada vaga : "))
                             
-                        cadastrodecarona.append({"emaildomotorista":emaildomotorista,
+                    cadastrodecarona.append({"emaildomotorista":emaildomotorista,
                                                     "tipodeveiculo":tipoveiculo,
                                                     "nomedoveiculo":nomedoveiculo,
                                                     "cordoveiculo":cordoVeiculo,
@@ -179,7 +177,7 @@ while True:
                 print("*"*50)
                 print("\nLista de Caronas\n")
                 for car in cadastrodecarona:
-                    if(car["vagas"]>0):
+                    if({car["vagas"]}>0):
                         print(f"Email do motorista:{car["emaildomotorista"]} ")
                         print(f"Veiculo: {car["tipodeveiculo"]}")
                         print(f"Nome do veiculo: {car["nomedoveiculo"]}")
@@ -190,7 +188,9 @@ while True:
                         print(f"Data da viagem : {car["data"]}")
                         print(f"Vagas disponiveis: {car["vagas"]}")
                         print(f"Valor por vaga: {car["valorporVaga"]}")
-#BUSCA POR CARONA
+                print("*"*50)
+
+#BUSCA POR CARONA (DESTINO E ORIGEM)
             if(opcao=="3"):
                 saidabusca=input("Digite de onde vai sair: ") 
                 destinobusca=input("Digite para onde voce quer ir: ")
@@ -248,7 +248,7 @@ while True:
 #LISTA DE CARONAS CADASTRADAS PELO USUÁRIO
             if(opcao2=="6"):
                 print("Caronas cadastradas")
-                if(usuariologado in cadastrodecarona):
+                if(emaildomotorista==usuariologado["email"]):
                     print(f"Email do motorista:{car["emaildomotorista"]}")
                     print(f"Veiculo:{car["tipodoveiculo"]}")  
                     print(f"Nome do veiculo : {car["nomedoveiculo"]}")    
