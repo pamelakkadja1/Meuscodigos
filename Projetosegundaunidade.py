@@ -4,17 +4,18 @@ cadastrodecarona={}
 reservacarona={"Carro":["A1","A2","A3","A4"],
                "Moto":["B1"]}
 
-print("*" * 50)
-print("Seja bem vindo!")
-print("*" * 50)
+print("--------------------------CAJAZEIRAS CARONAS-----------------------------")
 
 #PRIMEIRO MENU: CADASTRO DO USUARIO PARA TER O LOGIN
+
+print("---------------------------MENU DE CADASTRO-------------------------------")
+
 while True:
     opcao=input("ESCOLHA O QUE VOCÊ DESEJA FAZER\n\n"
                 "0 - Sair do aplicativo\n"\
                 "1 - Cadastro do usuário\n"\
                 "2 - LOGIN\n"\
-                "\nDIGITE A OPÇÃO ESCOLHIDA : ")
+                "\nDIGITE A OPÇÃO ESCOLHIDA : ").center
     
 #QUEBRA PARA SAIR DO APLICATIVO  
     if(opcao=="0"):
@@ -42,7 +43,7 @@ while True:
             print("Tente novamente!")
             nome=input("Digite seu nome: ")
         
-        while "@" not in email and ".com" not in email:
+        while("@" not in email and not email.endswith(".com")):
             print("Email inválido!")
             print("Tente novamente!")
             email=input("Digite o seu email: ")
@@ -62,6 +63,7 @@ while True:
 
 #LOGIN,SEGUNDO MENU APARTIR DO LOGIN
     if(opcao=="2"):
+        print("---------------------------LOGIN-------------------------------")
         email=input("Digite o seu email: ")
         senha=input("Digite sua senha: ")
         login=False
@@ -75,6 +77,7 @@ while True:
          
 #SEGUNDO MENU(SO USUARIOS LOGADOS)
         while(login==True):
+            print("---------------------------MENU DE LOGIN-------------------------------")
             opcao2=input("ESCOLHA O QUE DESJA FAZER\n\n"
                     "0 -Logout\n"\
                     "1 - Cadastro de carona\n"\
@@ -83,7 +86,7 @@ while True:
                     "4 - Buscar por data\n"\
                     "5 - Reserva de Carona\n"\
                     "6 - Minhas caronas\n"
-                        "\nDIGITE O QUE ESCOLHEU: ")
+                    "\nDIGITE O QUE ESCOLHEU: ")
             
 #LOGOUT(QUEBRA PARA VOLTAR PARA O PRIMEIRO MENU)
             if(opcao2=="0"):
@@ -93,6 +96,7 @@ while True:
 #CADASTRO DE UMA CARONA       
             if(opcao2=="1"): 
                 print("Informe as seguintes informaçoes!")
+                nomedomotorista=usuariologado["nome"]
                 emaildomotorista=usuariologado["email"]
                 tipoveiculo=input("Digite o tipo do veiculo(moto ou carro): ").lower()
                 nomedoveiculo=input("Digite o nome do veiculo (Onix,Prisma, POP100):")
@@ -102,6 +106,7 @@ while True:
                 destino=input("Digite o destino da viagem: ")
                 vagas=int(input("Digite quantas vagas tem  no veiculo : "))
                 valorPorVaga=float(input("Digite o valor por cada vaga : "))
+                horario=float(input("Digite o horario da viagem : "))
                 data=input("Digite a data da viagem (Formarto em dd/mm/aaaa): ")
                 dia=int(data[0:2])
                 mes=int(data[3:5])
@@ -168,6 +173,7 @@ while True:
                                                     "origem":origem,
                                                     "destino":destino,
                                                     "data":data,
+                                                    "horario":horario,
                                                     "vagas":vagas,
                                                     "valorporVaga":valorPorVaga})
                 print("Carona cadrastada com sucesso!!!")
@@ -186,6 +192,7 @@ while True:
                         print(f"Saída da viagem : {car["origem"]}")
                         print(f"Destino da viagem: {car["destino"]}")
                         print(f"Data da viagem : {car["data"]}")
+                        print(f"Horário da viagem :{car["horario"]}")
                         print(f"Vagas disponiveis: {car["vagas"]}")
                         print(f"Valor por vaga: {car["valorporVaga"]}")
                 print("*"*50)
@@ -207,6 +214,7 @@ while True:
                     print(f"Saída da viagem : {car["origem"]}")
                     print(f"Destino da viagem: {car["destino"]}")
                     print(f"Data da viagem : {car["data"]}")
+                    print(f"Horário da viagem :{car["horario"]}")
                     print(f"Vagas disponiveis: {car["vagas"]}")
                     print(f"Valor por vaga: {car["valorporVaga"]}")
                     print("-" * 50)
@@ -224,6 +232,7 @@ while True:
                     print(f"Saída da viagem : {car["origem"]}")
                     print(f"Destino da viagem: {car["destino"]}")
                     print(f"Data da viagem : {car["data"]}")
+                    print(f"Horário da viagem :{car["horario"]}")
                     print(f"Vagas disponiveis: {car["vagas"]}")
                     print(f"Valor por vaga: {car["valorporVaga"]}")
                     escolha=input("Deseja realmente reservar? (s/n): ").lower()
@@ -257,6 +266,7 @@ while True:
                     print(f"Saída da viagem : {car["origem"]}")
                     print(f"Destino da viagem: {car["destino"]}")
                     print(f"Data da viagem : {car["data"]}")
+                    print(f"Horário da viagem :{car["horario"]}")
                     print(f"Vagas disponiveis: {car["vagas"]}")
                     print(f"Valor por vaga: {car["valorporVaga"]}")
                     
@@ -304,6 +314,7 @@ while True:
                     print(f"Saída da viagem : {car["origem"]}")
                     print(f"Destino da viagem: {car["destino"]}")
                     print(f"Data da viagem : {car["data"]}")
+                    print(f"Horário da viagem :{car["horario"]}")
                     print(f"Vagas disponiveis: {car["vagas"]}")
                     print(f"Valor por vaga: {car["valorporVaga"]}")
                 else:
