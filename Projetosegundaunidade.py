@@ -3,9 +3,7 @@ usuariologado={}
 cadastrodecarona=[]
 reserva=[]
 
-print("="*35)
 print("========CAJAZEIRAS CARONAS=========")
-print("="*35)
 
 #PRIMEIRO MENU: CADASTRO DO USUARIO PARA TER O LOGIN
 
@@ -80,7 +78,7 @@ while True:
 
 
 #LOGIN,SEGUNDO MENU APARTIR DO LOGIN
-    if(opcao=="2"):
+    elif(opcao=="2"):
         print("=======LOGIN=========")
         email=input("Digite o seu email: ")
         senha=input("Digite sua senha: ")
@@ -127,7 +125,13 @@ while True:
                 destino=input("Digite o destino da viagem: ")
                 vagas=int(input("Digite quantas vagas tem  no veiculo : "))
                 valorPorVaga=float(input("Digite o valor por cada vaga : "))
-                horario=(input("Digite o horario da viagem (10:00 PM ou AM) : "))
+                horario=(input("Digite o horario da viagem (10:00) : "))
+                
+                while(":" not in horario):
+                    print("Horário invalido!")
+                    print("Tente novamente!")
+                    horario=(input("Digite o horario da viagem (10:00) : "))
+                    6
                 data=input("Digite a data da viagem (Formarto em dd/mm/aaaa): ")
                 dia=int(data[0:2])
                 mes=int(data[3:5])
@@ -194,9 +198,9 @@ while True:
                         print("Coloque um novo valor")
                         valorPorVaga=float(input("Digite o valor por cada vaga : "))
                             
-                cadastrodecarona.append([{"nomedomotorista":nomedomotorista,
+                cadastrodecarona.append({"nomedomotorista":nomedomotorista,
                                                 "emaildomotorista":emaildomotorista,
-                                                "tipodeveiculo":tipoveiculo,
+                                                "tipoveiculo":tipoveiculo,
                                                 "nomedoveiculo":nomedoveiculo,
                                                 "cordoveiculo":cordoVeiculo,
                                                 "placa":placa,
@@ -205,7 +209,7 @@ while True:
                                                 "data":data,
                                                 "horario":horario,
                                                 "vagas":vagas,
-                                                "valorporVaga":valorPorVaga}])
+                                                "valorporVaga":valorPorVaga})
                 
                 print("Carona cadrastada com sucesso!!!")
                 
@@ -215,9 +219,9 @@ while True:
                 print("\nLista de Caronas\n")
                 for car in cadastrodecarona:
                     if(car["vagas"]>0):
-                        print(f"Nome do motorista : {car["nome"]}")
+                        print(f"Nome do motorista : {car["nomedomotorista"]}")
                         print(f"Email do motorista:{car["emaildomotorista"]} ")
-                        print(f"Veiculo: {car["tipodeveiculo"]}")
+                        print(f"Veiculo: {car["tipoveiculo"]}")
                         print(f"Nome do veiculo: {car["nomedoveiculo"]}")
                         print(f"Cor do veiculo: {car["cordoveiculo"]}")
                         print(f"A placa do veiculo: {car["placa"]}")
@@ -234,22 +238,24 @@ while True:
                 saidabusca=input("Digite de onde vai sair: ") 
                 destinobusca=input("Digite para onde voce quer ir: ")
                 caronaencontrada=False
-                if(saidabusca == {car["origem"]} and destinobusca == {car["destino"]}):
-                    caronaencontrada=True
-                    print("Encontrou uma carona!\n\n")
-                    print("-" * 50)
-                    print(f"Email do motorista:{car["emaildomotorista"]} ")
-                    print(f"Veiculo: {car["tipodeveiculo"]}")
-                    print(f"Nome do veiculo: {car["nomedoveiculo"]}")
-                    print(f"Cor do veiculo: {car["cordoveiculo"]}")
-                    print(f"A placa do veiculo: {car["placa"]}")
-                    print(f"Saída da viagem : {car["origem"]}")
-                    print(f"Destino da viagem: {car["destino"]}")
-                    print(f"Data da viagem : {car["data"]}")
-                    print(f"Horário da viagem :{car["horario"]}")
-                    print(f"Vagas disponiveis: {car["vagas"]}")
-                    print(f"Valor por vaga: {car["valorporVaga"]}")
-                    print("-" * 50)
+                for car in cadastrodecarona:
+                    if(saidabusca == car["origem"] and destinobusca == car["destino"]):
+                        caronaencontrada=True
+                        print("Encontrou uma carona!\n\n")
+                        print("=" * 36)
+                        print(f"Nome do motorista: {car["nomedomotorista"]}")
+                        print(f"Email do motorista:{car["emaildomotorista"]} ")
+                        print(f"Veiculo: {car["tipoveiculo"]}")
+                        print(f"Nome do veiculo: {car["nomedoveiculo"]}")
+                        print(f"Cor do veiculo: {car["cordoveiculo"]}")
+                        print(f"A placa do veiculo: {car["placa"]}")
+                        print(f"Saída da viagem : {car["origem"]}")
+                        print(f"Destino da viagem: {car["destino"]}")
+                        print(f"Data da viagem : {car["data"]}")
+                        print(f"Horário da viagem :{car["horario"]}")
+                        print(f"Vagas disponiveis: {car["vagas"]}")
+                        print(f"Valor por vaga: {car["valorporVaga"]}")
+                        print("=" * 36)
                     
 #RESERVA DE UMA CARONA
             elif(opcao2=="5"):
@@ -258,11 +264,12 @@ while True:
                 caronaencontrada=False
                 
                 for car in cadastrodecarona:
-                    if(escolhamotorista in {car["emaildomotorista"]} and escolhadata in {car["data"]}):
+                    if(escolhamotorista in car["emaildomotorista"] and escolhadata in car["data"]):
                         caronaencontrada=True
                         print("Carona encontrada!")
+                        print(f"Nome do motorista: {car["nomedomotorista"]}")
                         print(f"Email do motorista:{car["emaildomotorista"]}")
-                        print(f"Veiculo:{car["tipodoveiculo"]}")  
+                        print(f"Veiculo:{car["tipoveiculo"]}")  
                         print(f"Nome do veiculo : {car["nomedoveiculo"]}")    
                         print(f"Cor: {car["cordoveiculo"]}")
                         print(f"A placa do veiculo: {car["placa"]}")
@@ -290,18 +297,20 @@ while True:
 #LISTA DE CARONAS CADASTRADAS PELO USUÁRIO
             elif(opcao2=="6"):
                 print("Caronas cadastradas")
-                if(emaildomotorista==usuariologado["email"]):
-                    print(f"Email do motorista:{car["emaildomotorista"]}")
-                    print(f"Veiculo:{car["tipodoveiculo"]}")  
-                    print(f"Nome do veiculo : {car["nomedoveiculo"]}")    
-                    print(f"Cor: {car["cordoveiculo"]}")
-                    print(f"A placa do veiculo: {car["placa"]}")
-                    print(f"Saída da viagem : {car["origem"]}")
-                    print(f"Destino da viagem: {car["destino"]}")
-                    print(f"Data da viagem : {car["data"]}")
-                    print(f"Horário da viagem :{car["horario"]}")
-                    print(f"Vagas disponiveis: {car["vagas"]}")
-                    print(f"Valor por vaga: {car["valorporVaga"]}")
+                for car in cadastrodecarona:
+                    if(emaildomotorista==usuariologado["email"]):
+                        print(f"Nome do motorista: {car["nomedomotorista"]}")
+                        print(f"Email do motorista:{car["emaildomotorista"]}")
+                        print(f"Veiculo:{car["tipoveiculo"]}")  
+                        print(f"Nome do veiculo : {car["nomedoveiculo"]}")    
+                        print(f"Cor: {car["cordoveiculo"]}")
+                        print(f"A placa do veiculo: {car["placa"]}")
+                        print(f"Saída da viagem : {car["origem"]}")
+                        print(f"Destino da viagem: {car["destino"]}")
+                        print(f"Data da viagem : {car["data"]}")
+                        print(f"Horário da viagem :{car["horario"]}")
+                        print(f"Vagas disponiveis: {car["vagas"]}")
+                        print(f"Valor por vaga: {car["valorporVaga"]}")
                     
 #BUSCA DE CARONA POR DATA
             elif(opcao2=="4"):
@@ -350,16 +359,19 @@ while True:
                             print("É uma data valida")
                     else:
                             print("É uma data invalida")
-                if(dataprocurada in {car["data"]}):
-                    print("Carona encontrada!")
-                    print(f"Saída da viagem : {car["origem"]}")
-                    print(f"Destino da viagem: {car["destino"]}")
-                    print(f"Data da viagem : {car["data"]}")
-                    print(f"Horário da viagem :{car["horario"]}")
-                    print(f"Vagas disponiveis: {car["vagas"]}")
-                    print(f"Valor por vaga: {car["valorporVaga"]}")
-                else:
-                    print("Não existe carona para essa data!")
+                for car in cadastrodecarona:
+                    if(dataprocurada in car["data"]):
+                        print("Carona encontrada!")
+                        print(f"Nome do motorista: {car["nomedomotorista"]}")
+                        print(f"Email do motorista:{car["emaildomotorista"]}")
+                        print(f"Saída da viagem : {car["origem"]}")
+                        print(f"Destino da viagem: {car["destino"]}")
+                        print(f"Data da viagem : {car["data"]}")
+                        print(f"Horário da viagem :{car["horario"]}")
+                        print(f"Vagas disponiveis: {car["vagas"]}")
+                        print(f"Valor por vaga: {car["valorporVaga"]}")
+                    else:
+                        print("Não existe carona para essa data!")
 
 #REMOVER CARONA CADASTRADA
             elif(opcao2=="7"):
