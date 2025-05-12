@@ -1,6 +1,7 @@
 usuarios=[]
 usuariologado={}
 cadastrodecarona=[]
+reserva=[]
 
 print("="*35)
 print("========CAJAZEIRAS CARONAS=========")
@@ -205,6 +206,8 @@ while True:
                                                 "horario":horario,
                                                 "vagas":vagas,
                                                 "valorporVaga":valorPorVaga}])
+                reserva.append([{"Vagasdisponiveis":vagas,
+                                 "passageiro":email}])
                 
                 print("Carona cadrastada com sucesso!!!")
                 
@@ -268,8 +271,9 @@ while True:
                     print(f"Vagas disponiveis: {car["vagas"]}")
                     print(f"Valor por vaga: {car["valorporVaga"]}")
                     escolha=input("Deseja realmente reservar? (s/n): ").lower()
-                    if(escolha=="s" and car[vagas]>0):
-                        passageiro=input("Digite o assento:")
+                    #if(escolha=="s" and car[vagas]>0):
+                        
+
                     
 #LISTA DE CARONAS CADASTRADAS PELO USUÁRIO
             if(opcao2=="6"):
