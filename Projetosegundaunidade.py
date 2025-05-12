@@ -1,11 +1,16 @@
+
 usuarios=[]
 usuariologado={}
 cadastrodecarona=[]
 reserva=[]
+avaliaçoes=[]
+
+print("      ______")
+print("  ___//__|__\\___")
+print(" |  _   _   _    |")
+print(" '-(_)--(_)---(_)-'")
 
 print("========CAJAZEIRAS CARONAS=========")
-
-#PRIMEIRO MENU: CADASTRO DO USUARIO PARA TER O LOGIN
 
 while True:
     print("========MENU DE CADASTRO========")
@@ -15,12 +20,10 @@ while True:
                 "2 - LOGIN\n"\
                 "\nDIGITE A OPÇÃO ESCOLHIDA : ")
     
-#QUEBRA PARA SAIR DO APLICATIVO  
     if(opcao=="0"):
         print("Até a proxima!")
         break
 
-#CADASTRO 
     elif(opcao=="1"):
         print("========CADASTRO========")
         nome=input("Digite seu nome: ")
@@ -75,9 +78,7 @@ while True:
         
         print("Cadastro feito com sucesso!!")
         print("=" * 32)
-
-
-#LOGIN,SEGUNDO MENU APARTIR DO LOGIN
+        
     elif(opcao=="2"):
         print("=======LOGIN=========")
         email=input("Digite o seu email: ")
@@ -91,12 +92,11 @@ while True:
                 break
             elif(login==False):
                 print("Erro no login,algo está errado!") 
-         
-#SEGUNDO MENU(SO USUARIOS LOGADOS)
+                
         while(login==True):
             print("========MENU DE LOGIN=========")
             opcao2=input("ESCOLHA O QUE DESJA FAZER\n\n"
-                    "0 -Logout\n"\
+                    "0 - Logout\n"\
                     "1 - Cadastro de carona\n"\
                     "2 - Lista de caronas disponiveis\n"\
                     "3 - Buscar carona por origem e destino\n"\
@@ -104,15 +104,14 @@ while True:
                     "5 - Reserva de Carona\n"\
                     "6 - Minhas caronas\n"\
                     "7 - Remoção de Carona\n"\
-                    "8 - Cancelar reserva\n"
+                    "8 - Cancelar reserva\n"\
+                    "9 - Avaliar motorista\n"
                     "\nDIGITE O QUE ESCOLHEU: ")
-            
-#LOGOUT(QUEBRA PARA VOLTAR PARA O PRIMEIRO MENU)
+
             if(opcao2=="0"):
                 print("Até mais!")
                 break
-            
-#CADASTRO DE UMA CARONA       
+                
             elif(opcao2=="1"): 
                 print("Informe as seguintes informaçoes!")
                 nomedomotorista=usuariologado["nome"]
@@ -213,7 +212,6 @@ while True:
                 
                 print("Carona cadrastada com sucesso!!!")
                 
-#LISTA DE CARONAS DISPONIVEIS 
             elif(opcao2=="2"):
                 print("="*32)
                 print("\nLista de Caronas\n")
@@ -232,9 +230,8 @@ while True:
                         print(f"Vagas disponiveis: {car["vagas"]}")
                         print(f"Valor por vaga: {car["valorporVaga"]}")
                 print("="*32)
-
-#BUSCA POR CARONA (DESTINO E ORIGEM)
-            elif(opcao=="3"):
+                
+            elif(opcao2=="3"):
                 saidabusca=input("Digite de onde vai sair: ") 
                 destinobusca=input("Digite para onde voce quer ir: ")
                 caronaencontrada=False
@@ -257,7 +254,6 @@ while True:
                         print(f"Valor por vaga: {car["valorporVaga"]}")
                         print("=" * 36)
                     
-#RESERVA DE UMA CARONA
             elif(opcao2=="5"):
                 escolhamotorista=input("Digite o email do motorista desejado:")
                 escolhadata=input("Digite a data da carona (dd/mm/aaaa): ")
@@ -279,22 +275,22 @@ while True:
                         print(f"Horário da viagem :{car["horario"]}")
                         print(f"Vagas disponiveis: {car["vagas"]}")
                         print(f"Valor por vaga: {car["valorporVaga"]}")
-                        if(car[vagas]>0):
+                        if(car["vagas"]>0):
                             escolha=input("Deseja realmente reservar? (s/n): ").lower()
                             if(escolha=="s"):
-                                car["vagas"]-=1
-                                reserva.append([{"emailpassageiro": usuariologado["email"],
-                                                        "emailmotorista": escolhamotorista,
-                                                                        "data": escolhadata}])
-                                print("Reserva feita com sucesso!")
+                                    car["vagas"]-=1
+                                    reserva.append({"emailpassageiro": usuariologado,
+                                                            "emailmotorista": escolhamotorista,
+                                                                            "data": escolhadata})
+                                    print("Reserva feita com sucesso!")
                             else:
-                                print("Reserva cancelada.")
+                                    print("Reserva cancelada.")
                         else:
                             print("Essa carona não tem mais vagas.")
                             break
                     if(caronaencontrada==False):
                         print("Carona inexistente!")
-#LISTA DE CARONAS CADASTRADAS PELO USUÁRIO
+                        
             elif(opcao2=="6"):
                 print("Caronas cadastradas")
                 for car in cadastrodecarona:
@@ -311,8 +307,8 @@ while True:
                         print(f"Horário da viagem :{car["horario"]}")
                         print(f"Vagas disponiveis: {car["vagas"]}")
                         print(f"Valor por vaga: {car["valorporVaga"]}")
+                print("="*18)
                     
-#BUSCA DE CARONA POR DATA
             elif(opcao2=="4"):
                 escolhamotorista=input("Digite o email do motorista desejado:")
                 dataprocurada=input("Digite uma data (dd/mm/aaaa): ")
@@ -373,7 +369,6 @@ while True:
                     else:
                         print("Não existe carona para essa data!")
 
-#REMOVER CARONA CADASTRADA
             elif(opcao2=="7"):
                 emaildomotorista=input("Digite o seu email: ")
                 senha3=input("Digite a sua senha:")
@@ -389,21 +384,37 @@ while True:
                     else:
                         print("Voce nao pode remover uma carona!")
                         break                  
-#CANCELAR RESERVA
+                    
             elif(opcao2=="8"):
-                emaildomotorista=input("Digite o email do motorista: ")
+                escolhamotorista=input("Digite o email do motorista: ")
                 dataprocurada3=input("Digite a data da carona(dd/mm/aaaa):")
                 reservaremovida=False
                 for r in reserva:
-                    if(r["emailpassageiro"]==usuariologado["email"] 
-                       and r["emaildomotorista"]==emaildomotorista 
-                       and r["data"]==escolhadata):
+                    if(r["emailpassageiro"]==usuariologado["email"]
+                       and dataprocurada3 == r["data"]
+                       and escolhamotorista == r["emailmotorista"]):
                         reserva.remove(r)
                     for car in cadastrodecarona:
                         if(car["emaildomotorista"]==emaildomotorista
-                           and car["data"]==escolhadata):
+                           and car["data"]==dataprocurada3):
                             car["vagas"]+=1
                             print("Reserva cancelada com sucesso!!")
                             reservaremovida=True
                             break
                             
+            elif(opcao2=="9"):
+                escolhamotorista=input("Digite o email do motorista que voce quer avaliar: ")
+                for car in cadastrodecarona:
+                    if(escolhamotorista in car["emaildomotorista"]):
+                        nota=input("Digite uma nota de 1 a 5: ")
+                        print("Avaliação feita com sucesso!")
+                        while(nota>5):
+                            print("Nota invalida")
+                            nota=input("Digite uma nota de 1 a 5: ")
+                            
+                    else:
+                        print("Esse motorista não é cadastrado!")
+                
+                    
+                    avaliaçoes.append({"motorista":escolhamotorista,
+                                   "nota":nota})
